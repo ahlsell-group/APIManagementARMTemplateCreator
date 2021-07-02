@@ -1,3 +1,24 @@
+## Ahlsell-specific information
+
+This is Ahlsell's fork of the Api Management ARM Template Creator, created by Mattias Lögdberg.
+To run using this fork instead of the official version, do the following:
+1. Uninstall the official version
+   ``` pwsh
+   # Must be run as admin
+   Uninstall-Module APIManagementTemplate
+   ```
+
+1. Download and Build this repository
+   
+   Note that this project is not .Net Core, so it requires Visual Studio to build
+
+1. Import this module into Powershell
+    ``` pwsh
+    # Must be the full Windows-only version of Powershell. Admin NOT required
+    Import-Module <path to repo>/APIManagementTemplate\bin\Debug\APIManagementTemplate.dll
+    ```
+    Pro tip: Add this statement to your Powershell Profile (found by running `echo $PROFILE`) to have it imported in all Powershell instances
+
 ## API Management ARM Template Creator
 
 This is a PowerShell script module to extract API Management to ARM templates, focus is to provide a module for easy deployments.  
