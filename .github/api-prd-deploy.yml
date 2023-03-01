@@ -1,0 +1,12 @@
+name: Deploy API to Production
+on:
+  release:
+    types:
+      - published
+jobs:
+  deploy-api:
+    name: Production
+    uses: ahlsell-group/api-toolkit/.github/workflows/deploy-api.yml@master
+    with:
+      environment: prd
+    secrets: inherit

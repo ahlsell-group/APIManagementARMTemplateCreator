@@ -1,0 +1,25 @@
+name: Deploy API to Test and Create Tag
+on:
+  workflow_dispatch: null
+  push:
+    branches:
+      - master
+  jobs:
+    deploy-api:
+      name: Test
+      uses: ahlsell-group/api-toolkit/.github/workflows/deploy-api.yml@master
+      with:
+        environment: test
+      secrets: inherit
+    run-integration-tests:
+      name: On Test
+      if: ${{ github.event.inputs.run-tests == 'true' }}
+      needs: deploy-api
+      uses: ahlsell-group/api-toolkit/.github/workflows/integration-test.yml@master
+      with:
+        environment: test
+      secrets: inherit
+    create-draft-release:
+      needs: run-integration-tests
+      if: ${{ github.ref == 'refs/heads/master' }}
+      uses: ahlsell-group/api-toolkit/.github/workflows/version-tag.yml@master

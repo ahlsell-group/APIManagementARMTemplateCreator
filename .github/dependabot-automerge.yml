@@ -1,0 +1,8 @@
+name: Dependabot auto-approve & merge
+on: pull_request
+permissions:
+  pull-requests: write
+jobs:
+  auto-handle-dependabot:
+    uses: ahlsell-group/api-toolkit/.github/workflows/dependabot-automerge.yml@master
+    secrets: inherit

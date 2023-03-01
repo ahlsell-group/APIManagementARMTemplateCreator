@@ -1,0 +1,23 @@
+name: Deploy API to Dev
+on:
+  workflow_dispatch:
+    inputs:
+      run-tests:
+        description: Should Integration Tests run (write false if tests should not be run)?
+        required: true
+        default: "true"
+jobs:
+  deploy-api:
+    name: Dev
+    uses: ahlsell-group/api-toolkit/.github/workflows/deploy-api.yml@master
+    with:
+      environment: dev
+    secrets: inherit
+  run-integration-tests:
+    name: On Dev
+    if: ${{ github.event.inputs.run-tests == 'true' }}
+    needs: deploy-api
+    uses: ahlsell-group/api-toolkit/.github/workflows/integration-test.yml@master
+    with:
+      environment: dev
+    secrets: inherit
